@@ -78,13 +78,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contactForm');
     
     if (contactForm) {
-        // Додаємо timestamp при завантаженні форми
-        const timestampInput = document.createElement('input');
-        timestampInput.type = 'hidden';
-        timestampInput.name = 'timestamp';
-        timestampInput.value = Math.floor(Date.now() / 1000);
-        contactForm.appendChild(timestampInput);
-        
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -94,48 +87,39 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.disabled = true;
             
             // Збираємо дані форми
-            const formData = {
-                name: this.querySelector('#name').value.trim(),
-                email: this.querySelector('#email').value.trim(),
-                phone: this.querySelector('#phone').value.trim(),
-                company: this.querySelector('#company').value.trim(),
-                message: this.querySelector('#message').value.trim(),
-                honeypot: this.querySelector('#honeypot').value.trim(),
-                timestamp: timestampInput.value
-            };
+            const formData = new FormData(this);
             
             // Валідація на клієнті
-            if (!formData.name || !formData.email || !formData.message) {
+            const name = formData.get('name').trim();
+            const email = formData.get('email').trim();
+            const message = formData.get('message').trim();
+            
+            if (!name || !email || !message) {
                 showNotification('Будь ласка, заповніть всі обов\'язкові поля.', 'error');
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
                 return;
             }
             
-            if (!isValidEmail(formData.email)) {
+            if (!isValidEmail(email)) {
                 showNotification('Будь ласка, введіть коректний email адрес.', 'error');
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
                 return;
             }
             
-            // Відправка форми
-            fetch('send-form.php', {
+            // Відправка форми через Web3Forms
+            fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
+                body: formData
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    showNotification(data.message, 'success');
+                    showNotification('Дякуємо за ваше повідомлення! Ми зв\'яжемося з вами найближчим часом.', 'success');
                     contactForm.reset();
-                    // Оновлюємо timestamp
-                    timestampInput.value = Math.floor(Date.now() / 1000);
                 } else {
-                    showNotification(data.message, 'error');
+                    showNotification('Помилка відправки повідомлення. Спробуйте ще раз або зв\'яжіться з нами по телефону.', 'error');
                 }
             })
             .catch(error => {

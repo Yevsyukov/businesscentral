@@ -3104,7 +3104,8 @@ p {
 }
 
 /* Honeypot поле для захисту від спаму */
-.form-group input[name="honeypot"] {
+.form-group input[name="honeypot"],
+input[name="botcheck"] {
     position: absolute;
     left: -9999px;
     width: 1px;

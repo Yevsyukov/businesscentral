@@ -913,7 +913,9 @@
                     </div>
                 </div>
                 <div class="contact-form">
-                    <form id="contactForm" role="form" aria-label="Форма зворотного зв'язку">
+                    <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" role="form" aria-label="Форма зворотного зв'язку">
+                        <input type="hidden" name="access_key" value="7c59ff76-3ec3-4e28-9523-2087c141160d">
+                        
                         <div class="form-group">
                             <label for="name" class="sr-only">Ваше ім'я</label>
                             <input type="text" id="name" name="name" placeholder="Ваше ім'я" required aria-required="true">
@@ -934,11 +936,14 @@
                             <label for="message" class="sr-only">Опишіть ваші потреби</label>
                             <textarea id="message" name="message" placeholder="Опишіть ваші потреби" rows="4" required aria-required="true"></textarea>
                         </div>
+                        
                         <!-- Honeypot поле для захисту від спаму -->
-                        <div class="form-group" style="display: none;">
-                            <label for="honeypot" class="sr-only">Не заповнюйте це поле</label>
-                            <input type="text" id="honeypot" name="honeypot" tabindex="-1" autocomplete="off">
-                        </div>
+                        <input type="hidden" name="botcheck" style="display: none;">
+                        
+                        <!-- Додаткові поля для Web3Forms -->
+                        <input type="hidden" name="subject" value="Нова заявка з сайту Coprime IT - Business Central">
+                        <input type="hidden" name="from_name" value="Coprime IT Website">
+                        
                         <button type="submit" class="btn btn-primary" aria-label="Надіслати заявку на консультацію">Надіслати заявку</button>
                     </form>
                 </div>
