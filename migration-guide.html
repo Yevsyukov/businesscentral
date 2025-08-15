@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>Міграція з 1С на Business Central | Інструкція для розробників | Coprime IT</title>
+    <meta name="title" content="Міграція з 1С на Business Central | Інструкція для розробників | Coprime IT">
+    <meta name="description" content="Детальна інструкція для розробників 1С по міграції інформаційної системи компанії на Microsoft Dynamics 365 Business Central.">
+    <meta name="keywords" content="міграція 1С, Business Central, розробники 1С, інструкція міграції, Coprime IT">
+    <meta name="author" content="Coprime IT">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="uk">
+    <meta name="revisit-after" content="7 days">
+    <meta name="distribution" content="global">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://coprime.it/migration-guide">
+    <meta property="og:title" content="Міграція з 1С на Business Central | Інструкція для розробників">
+    <meta property="og:description" content="Детальна інструкція для розробників 1С по міграції на Business Central.">
+    <meta property="og:image" content="https://coprime.it/images/1c-migration-guide.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Coprime IT">
+    <meta property="og:locale" content="uk_UA">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://coprime.it/migration-guide">
+    <meta property="twitter:title" content="Міграція з 1С на Business Central | Інструкція для розробників">
+    <meta property="twitter:description" content="Детальна інструкція для розробників 1С по міграції на Business Central.">
+    <meta property="twitter:image" content="https://coprime.it/images/1c-migration-guide.jpg">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="geo.region" content="UA">
+    <meta name="geo.placename" content="Україна">
+    <meta name="DC.title" content="Міграція з 1С на Business Central">
+    <meta name="DC.description" content="Детальна інструкція для розробників 1С по міграції">
+    <meta name="DC.language" content="uk">
+    <meta name="DC.publisher" content="Coprime IT">
+    <meta name="DC.coverage" content="Україна">
+    <meta name="DC.subject" content="міграція 1С, Business Central, розробники 1С">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://coprime.it/migration-guide">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "Міграція з 1С на Business Central",
+        "description": "Детальна інструкція для розробників 1С по міграції інформаційної системи компанії",
+        "url": "https://coprime.it/migration-guide",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Coprime IT"
+        },
+        "step": [
+            {
+                "@type": "HowToStep",
+                "name": "Аналіз поточної системи",
+                "text": "Детальний аналіз 1С конфігурації, даних та бізнес-процесів"
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Планування архітектури",
+                "text": "Проектування нової архітектури в Business Central"
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Розробка розширень",
+                "text": "Створення кастомних розширень на AL мові"
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Міграція даних",
+                "text": "Перенесення та трансформація даних з 1С"
+            }
+        ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html" title="Повернутися на головну">
+                        <h2>Coprime IT</h2>
+                    </a>
+                </div>
+                <ul class="nav-menu" role="navigation" aria-label="Головна навігація">
+                    <li><a href="index.html" title="Головна сторінка">Головна</a></li>
+                    <li class="nav-dropdown">
+                        <a href="index.html#product" title="Продукт та послуги" class="nav-dropdown-toggle">
+                            Продукт <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <ul class="nav-dropdown-menu">
+                            <li><a href="index.html#services" title="Послуги впровадження ERP">Послуги</a></li>
+                            <li><a href="modules.html" title="Детальний опис модулів Business Central">Модулі</a></li>
+                            <li><a href="index.html#ai-features" title="AI функції Microsoft Copilot">AI функції</a></li>
+                            <li><a href="index.html#specifications" title="Технічні характеристики ERP">Технічні характеристики</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-dropdown">
+                        <a href="index.html#pricing" title="Ціни та ресурси" class="nav-dropdown-toggle">
+                            Ціни <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <ul class="nav-dropdown-menu">
+                            <li><a href="index.html#pricing" title="Ціни на ліцензії Business Central">Ліцензії</a></li>
+                            <li><a href="knowledge-base.html" title="База знань Microsoft Business Central">База знань</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-dropdown">
+                        <a href="index.html#migration-urgency" title="Міграція та переваги" class="nav-dropdown-toggle">
+                            Міграція <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <ul class="nav-dropdown-menu">
+                            <li><a href="management.html" title="Для менеджменту">Для менеджменту</a></li>
+                            <li><a href="migration-guide.html" title="Інструкція для розробників 1С">Інструкція для розробників</a></li>
+                            <li><a href="index.html#migration-urgency" title="Міграція з 1С">З 1С</a></li>
+                            <li><a href="index.html#benefits" title="Переваги Business Central">Переваги</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="power-platform.html" title="Power Platform для Microsoft Dynamics 365 Business Central">Power Platform</a></li>
+                    <li><a href="implementation-tips.html" title="Поради успішного впровадження Microsoft Dynamics 365 Business Central">Поради</a></li>
+                    <li><a href="index.html#process" title="Процес впровадження">Процес</a></li>
+                    <li><a href="index.html#contact" title="Контакти Coprime IT">Контакти</a></li>
+                </ul>
+                <div class="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Міграція з <span class="highlight">1С</span><br>
+                        на Microsoft Dynamics 365 Business Central
+                    </h1>
+                    <p class="hero-subtitle">
+                        Детальна інструкція для розробників 1С по переведенню інформаційної системи компанії
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#migration-overview" class="btn btn-primary" title="Огляд міграції">Огляд міграції</a>
+                        <a href="index.html#contact" class="btn btn-secondary" title="Консультація по міграції">Консультація</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Migration Overview -->
+        <section id="migration-overview" class="migration-overview">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Огляд процесу міграції</h2>
+                    <p>Покроковий план переходу з 1С на Microsoft Dynamics 365 Business Central</p>
+                </div>
+                
+                <div class="migration-steps">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Аналіз поточної системи</h3>
+                            <p>Детальний аналіз 1С конфігурації, даних та бізнес-процесів</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Планування архітектури</h3>
+                            <p>Проектування нової архітектури в Business Central</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Розробка розширень</h3>
+                            <p>Створення кастомних розширень на AL мові</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Міграція даних</h3>
+                            <p>Перенесення та трансформація даних з 1С</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h3>Тестування та налаштування</h3>
+                            <p>Комплексне тестування та фінальне налаштування</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <h3>Запуск та підтримка</h3>
+                            <p>Запуск системи та постійна технічна підтримка</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Comparison -->
+        <section id="technical-comparison" class="technical-comparison">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Технічне порівняння 1С та Microsoft Dynamics 365 Business Central</h2>
+                    <p>Основні відмінності в архітектурі та розробці</p>
+                </div>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h3>1С:Предприятие</h3>
+                        <div class="comparison-features">
+                            <div class="feature-row">
+                                <span class="feature-label">Мова розробки:</span>
+                                <span class="feature-value">1С мова</span>
+                            </div>
+                            <div class="feature-row">
+                                <span class="feature-label">Архітектура:</span>
+                                <span class="feature-value">Файлова або клієнт-серверна</span>
+                            </div>
+                            <div class="feature-row">
+                                <span class="feature-label">База даних:</span>
+                                <span class="feature-value">1С або MS SQL Server</span>
+                            </div>
+                            <div class="feature-row">
+                                <span class="feature-label">Розширення:</span>
+                                <span class="feature-value">Конфігурації та зовнішні обробки</span>
+                            </div>
+                            <div class="feature-row">
+                                <span class="feature-label">Ліцензування:</span>
+                                <span class="feature-value">Локальне ліцензування</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-card featured">
+                        <h3>Microsoft Dynamics 365 Business Central</h3>
+                        <div class="comparison-features">
+                            <div class="feature-row">
+                                <span class="feature-label">Мова розробки:</span>
+                                <span class="feature-value">AL (Application Language)</span>
+                            </div>
+                            <div class="feature-row">
+                                <span class="feature-label">Архітектура:</span>
+                                <span class="feature-value">Хмарна SaaS</span>
+                            </div>
+                            <div class="feature-row">
+                                <span class="feature-label">База даних:</span>
+                                <span class="feature-value">Azure SQL Database</span>
+                            </div>
+                            <div class="feature-row">
+                                <span class="feature-label">Розширення:</span>
+                                <span class="feature-value">AppSource та приватні розширення</span>
+                            </div>
+                            <div class="feature-row">
+                                <span class="feature-label">Ліцензування:</span>
+                                <span class="feature-value">Підписка Microsoft 365</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Development Environment Setup -->
+        <section id="dev-environment" class="dev-environment">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Налаштування середовища розробки</h2>
+                    <p>Інструменти та середовища для розробки в Business Central</p>
+                </div>
+                
+                <div class="environment-grid">
+                    <div class="environment-card">
+                        <div class="env-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Visual Studio Code</h3>
+                        <p>Основне середовище розробки для AL</p>
+                        <div class="env-links">
+                            <a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer" class="env-link">
+                                <i class="fas fa-download"></i>
+                                Завантажити VS Code
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="environment-card">
+                        <div class="env-icon">
+                            <i class="fas fa-puzzle-piece"></i>
+                        </div>
+                        <h3>AL Language Extension</h3>
+                        <p>Розширення для підтримки AL мови</p>
+                        <div class="env-links">
+                            <a href="https://marketplace.visualstudio.com/items?itemName=ms-dynamics-smb.al" target="_blank" rel="noopener noreferrer" class="env-link">
+                                <i class="fas fa-download"></i>
+                                Встановити розширення
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="environment-card">
+                        <div class="env-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <h3>Sandbox середовище</h3>
+                        <p>Тестове середовище для розробки</p>
+                        <div class="env-links">
+                            <a href="https://learn.microsoft.com/en-us/dynamics365/business-central/dev-itpro/developer/devenv-sandbox-overview" target="_blank" rel="noopener noreferrer" class="env-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                Налаштування Sandbox
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="environment-card">
+                        <div class="env-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3>Docker контейнери</h3>
+                        <p>Локальне середовище розробки</p>
+                        <div class="env-links">
+                            <a href="https://learn.microsoft.com/en-us/dynamics365/business-central/dev-itpro/developer/devenv-docker-overview" target="_blank" rel="noopener noreferrer" class="env-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                Docker налаштування
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AL Language Guide -->
+        <section id="al-language" class="al-language">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Основи AL мови розробки</h2>
+                    <p>Ключові концепції та синтаксис для розробників 1С</p>
+                </div>
+                
+                <div class="al-content">
+                    <div class="al-section">
+                        <h3>Основні відмінності від 1С</h3>
+                        <div class="al-differences">
+                            <div class="difference-item">
+                                <h4><i class="fas fa-code"></i> Синтаксис</h4>
+                                <p>AL використовує C#-подібний синтаксис замість 1С мови</p>
+                                <div class="code-example">
+                                    <pre><code>// 1С
+Процедура СоздатьДокумент()
+    Док = Документы.Продажи.СоздатьДокумент();
+    Док.Дата = ТекущаяДата();
+    Док.Записать();
+КонецПроцедуры
+
+// AL
+procedure CreateDocument()
+var
+    SalesHeader: Record "Sales Header";
+begin
+    SalesHeader.Init();
+    SalesHeader."Document Type" := SalesHeader."Document Type"::Invoice;
+    SalesHeader."Posting Date" := Today();
+    SalesHeader.Insert();
+end;</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="difference-item">
+                                <h4><i class="fas fa-database"></i> Робота з даними</h4>
+                                <p>Використання Record замість об'єктів 1С</p>
+                                <div class="code-example">
+                                    <pre><code>// 1С
+Запрос = Новый Запрос;
+Запрос.Текст = "ВЫБРАТЬ * ИЗ Справочник.Номенклатура";
+
+// AL
+var
+    Item: Record Item;
+begin
+    if Item.FindSet() then
+        repeat
+            // Обробка запису
+        until Item.Next() = 0;
+end;</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="difference-item">
+                                <h4><i class="fas fa-window-maximize"></i> Інтерфейс</h4>
+                                <p>Сторінки замість форм 1С</p>
+                                <div class="code-example">
+                                    <pre><code>// 1С
+&НаСервере
+Процедура ПриСозданииНаСервере()
+    // Ініціалізація форми
+КонецПроцедуры
+
+// AL
+page 50100 "Customer Card"
+{
+    PageType = Card;
+    SourceTable = Customer;
+    
+    layout
+    {
+        area(Content)
+        {
+            group(General)
+            {
+                field("No."; Rec."No.")
+                {
+                    ApplicationArea = All;
+                }
+            }
+        }
+    }</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Migration Strategy -->
+        <section id="migration-strategy" class="migration-strategy">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Стратегія міграції</h2>
+                    <p>Покроковий план переходу з 1С на Business Central</p>
+                </div>
+                
+                <div class="strategy-grid">
+                    <div class="strategy-phase">
+                        <div class="phase-header">
+                            <div class="phase-number">Фаза 1</div>
+                            <h3>Підготовка та аналіз</h3>
+                        </div>
+                        <div class="phase-content">
+                            <h4>Що робити:</h4>
+                            <ul>
+                                <li>Аналіз поточної 1С конфігурації</li>
+                                <li>Документування бізнес-процесів</li>
+                                <li>Інвентаризація даних та звітів</li>
+                                <li>Визначення кастомних функцій</li>
+                                <li>Планування архітектури BC</li>
+                            </ul>
+                            <h4>Результат:</h4>
+                            <p>Технічне завдання та план міграції</p>
+                        </div>
+                    </div>
+                    
+                    <div class="strategy-phase">
+                        <div class="phase-header">
+                            <div class="phase-number">Фаза 2</div>
+                            <h3>Розробка розширень</h3>
+                        </div>
+                        <div class="phase-content">
+                            <h4>Що робити:</h4>
+                            <ul>
+                                <li>Створення базових таблиць та полів</li>
+                                <li>Розробка кастомних сторінок</li>
+                                <li>Налаштування бізнес-логіки</li>
+                                <li>Створення звітів та документів</li>
+                                <li>Інтеграція з зовнішніми системами</li>
+                            </ul>
+                            <h4>Результат:</h4>
+                            <p>Функціональне розширення Business Central</p>
+                        </div>
+                    </div>
+                    
+                    <div class="strategy-phase">
+                        <div class="phase-header">
+                            <div class="phase-number">Фаза 3</div>
+                            <h3>Міграція даних</h3>
+                        </div>
+                        <div class="phase-content">
+                            <h4>Що робити:</h4>
+                            <ul>
+                                <li>Експорт даних з 1С</li>
+                                <li>Трансформація та очищення даних</li>
+                                <li>Імпорт в Business Central</li>
+                                <li>Валідація цілісності даних</li>
+                                <li>Тестування міграції</li>
+                            </ul>
+                            <h4>Результат:</h4>
+                            <p>Повністю мігровані дані в BC</p>
+                        </div>
+                    </div>
+                    
+                    <div class="strategy-phase">
+                        <div class="phase-header">
+                            <div class="phase-number">Фаза 4</div>
+                            <h3>Тестування та запуск</h3>
+                        </div>
+                        <div class="phase-content">
+                            <h4>Що робити:</h4>
+                            <ul>
+                                <li>Комплексне тестування функціональності</li>
+                                <li>Навчання користувачів</li>
+                                <li>Паралельна робота систем</li>
+                                <li>Фінальний перехід</li>
+                                <li>Моніторинг та підтримка</li>
+                            </ul>
+                            <h4>Результат:</h4>
+                            <p>Повністю функціонуюча система BC</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Migration -->
+        <section id="data-migration" class="data-migration">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Міграція даних</h2>
+                    <p>Технічні деталі перенесення даних з 1С</p>
+                </div>
+                
+                <div class="migration-methods">
+                    <div class="method-card">
+                        <h3>Експорт з 1С</h3>
+                        <div class="method-steps">
+                            <div class="step">
+                                <span class="step-number">1</span>
+                                <p>Використання зовнішніх обробок для експорту</p>
+                            </div>
+                            <div class="step">
+                                <span class="step-number">2</span>
+                                <p>Експорт в XML або CSV формат</p>
+                            </div>
+                            <div class="step">
+                                <span class="step-number">3</span>
+                                <p>Створення звітів по структурі даних</p>
+                            </div>
+                        </div>
+                        <div class="code-example">
+                            <pre><code>// 1С - Експорт номенклатури
+Процедура ЭкспортНоменклатуры()
+    Запрос = Новый Запрос;
+    Запрос.Текст = "ВЫБРАТЬ * ИЗ Справочник.Номенклатура";
+    Результат = Запрос.Выполнить();
+    
+    Файл = Новый ЗаписьТекста("C:\Export\Items.csv");
+    Файл.Записать("Код;Наименование;ЕдиницаИзмерения");
+    
+    Выборка = Результат.Выбрать();
+    Пока Выборка.Следующий() Цикл
+        Файл.Записать(Выборка.Код + ";" + 
+                     Выборка.Наименование + ";" + 
+                     Выборка.ЕдиницаИзмерения);
+    КонецЦикла;
+    Файл.Закрыть();
+КонецПроцедуры</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h3>Імпорт в Business Central</h3>
+                        <div class="method-steps">
+                            <div class="step">
+                                <span class="step-number">1</span>
+                                <p>Створення Data Migration розширення</p>
+                            </div>
+                            <div class="step">
+                                <span class="step-number">2</span>
+                                <p>Налаштування маппінгу полів</p>
+                            </div>
+                            <div class="step">
+                                <span class="step-number">3</span>
+                                <p>Валідація та імпорт даних</p>
+                            </div>
+                        </div>
+                        <div class="code-example">
+                            <pre><code>// AL - Імпорт номенклатури
+codeunit 50100 "Data Migration"
+{
+    procedure ImportItems()
+    var
+        Item: Record Item;
+        TempBlob: Codeunit "Temp Blob";
+        InStream: InStream;
+        Line: Text;
+        Fields: List of [Text];
+    begin
+        TempBlob.CreateInStream(InStream);
+        
+        while not InStream.EOS do begin
+            InStream.ReadText(Line);
+            Fields := Line.Split(';');
+            
+            if Fields.Count >= 3 then begin
+                Item.Init();
+                Item.Validate("No.", Fields.Get(1));
+                Item.Validate(Description, Fields.Get(2));
+                Item.Validate("Base Unit of Measure", Fields.Get(3));
+                Item.Insert();
+            end;
+        end;
+    end;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Common Challenges -->
+        <section id="challenges" class="challenges">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Типові виклики та рішення</h2>
+                    <p>Найпоширеніші проблеми при міграції та способи їх вирішення</p>
+                </div>
+                
+                <div class="challenges-grid">
+                    <div class="challenge-card">
+                        <div class="challenge-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3>Складні обчислення</h3>
+                        <p>Перенесення складних формул та розрахунків з 1С</p>
+                        <div class="solution">
+                            <h4>Рішення:</h4>
+                            <ul>
+                                <li>Використання Codeunits для бізнес-логіки</li>
+                                <li>Створення кастомних функцій</li>
+                                <li>Адаптація під AL синтаксис</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="challenge-card">
+                        <div class="challenge-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h3>Звіти та друк</h3>
+                        <p>Міграція складних звітів та форм друку</p>
+                        <div class="solution">
+                            <h4>Рішення:</h4>
+                            <ul>
+                                <li>Використання Report Builder</li>
+                                <li>Створення Word шаблонів</li>
+                                <li>Налаштування RDLC звітів</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="challenge-card">
+                        <div class="challenge-icon">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <h3>Інтеграції</h3>
+                        <p>Перенесення зовнішніх інтеграцій</p>
+                        <div class="solution">
+                            <h4>Рішення:</h4>
+                            <ul>
+                                <li>Використання Web Services</li>
+                                <li>Створення API endpoints</li>
+                                <li>Інтеграція через Power Platform</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="challenge-card">
+                        <div class="challenge-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Користувачі та права</h3>
+                        <p>Налаштування користувачів та прав доступу</p>
+                        <div class="solution">
+                            <h4>Рішення:</h4>
+                            <ul>
+                                <li>Використання Permission Sets</li>
+                                <li>Налаштування User Groups</li>
+                                <li>Інтеграція з Azure AD</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources & Tools -->
+        <section id="resources-tools" class="resources-tools">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Корисні ресурси та інструменти</h2>
+                    <p>Документація, інструменти та спільноти для розробників</p>
+                </div>
+                
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3>Документація AL</h3>
+                        <p>Офіційна документація по AL мові розробки</p>
+                        <div class="resource-links">
+                            <a href="https://learn.microsoft.com/en-us/dynamics365/business-central/dev-itpro/developer/devenv-al-language-elements" target="_blank" rel="noopener noreferrer" class="resource-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                AL Language Elements
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Приклади коду</h3>
+                        <p>GitHub репозиторії з прикладами розширень</p>
+                        <div class="resource-links">
+                            <a href="https://github.com/microsoft/AL" target="_blank" rel="noopener noreferrer" class="resource-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                AL Language Repository
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Спільнота розробників</h3>
+                        <p>Форуми та спільноти для обміну досвідом</p>
+                        <div class="resource-links">
+                            <a href="https://community.dynamics.com/business/" target="_blank" rel="noopener noreferrer" class="resource-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                Dynamics Community
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Навчальні курси</h3>
+                        <p>Безкоштовні курси Microsoft Learn</p>
+                        <div class="resource-links">
+                            <a href="https://learn.microsoft.com/en-us/training/dynamics365/business-central" target="_blank" rel="noopener noreferrer" class="resource-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                Business Central Training
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Потрібна допомога з міграцією?</h2>
+                    <p>Наші експерти готові допомогти з плануванням та виконанням міграції з 1С на Business Central</p>
+                    <div class="cta-buttons">
+                        <a href="index.html#contact" class="btn btn-primary">Отримати консультацію</a>
+                        <a href="knowledge-base.html" class="btn btn-secondary">База знань</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Coprime IT</h3>
+                    <p>Професійне впровадження MS Dynamics 365 Business Central в Україні</p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/company/coprime-it" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Coprime IT"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.facebook.com/coprime.it" target="_blank" rel="noopener noreferrer" aria-label="Facebook Coprime IT"><i class="fab fa-facebook"></i></a>
+                        <a href="https://t.me/coprime_it" target="_blank" rel="noopener noreferrer" aria-label="Telegram Coprime IT"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Міграція</h4>
+                    <ul>
+                        <li><a href="#migration-overview">Огляд міграції</a></li>
+                        <li><a href="#technical-comparison">Порівняння технологій</a></li>
+                        <li><a href="#migration-strategy">Стратегія міграції</a></li>
+                        <li><a href="#data-migration">Міграція даних</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Компанія</h4>
+                    <ul>
+                        <li><a href="index.html">Головна</a></li>
+                        <li><a href="modules.html">Модулі</a></li>
+                        <li><a href="knowledge-base.html">База знань</a></li>
+                        <li><a href="index.html#contact">Контакти</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Coprime IT. Всі права захищені.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

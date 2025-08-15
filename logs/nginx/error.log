@@ -1,0 +1,17 @@
+2025/08/15 11:28:29 [emerg] 1#1: "location" directive is not allowed here in /etc/nginx/nginx.conf:42
+2025/08/15 11:28:29 [emerg] 1#1: "location" directive is not allowed here in /etc/nginx/nginx.conf:42
+2025/08/15 11:28:30 [emerg] 1#1: "location" directive is not allowed here in /etc/nginx/nginx.conf:42
+2025/08/15 11:28:30 [emerg] 1#1: "location" directive is not allowed here in /etc/nginx/nginx.conf:42
+2025/08/15 11:28:31 [emerg] 1#1: "location" directive is not allowed here in /etc/nginx/nginx.conf:42
+2025/08/15 11:28:33 [emerg] 1#1: "location" directive is not allowed here in /etc/nginx/nginx.conf:42
+2025/08/15 11:28:36 [emerg] 1#1: "location" directive is not allowed here in /etc/nginx/nginx.conf:42
+2025/08/15 11:28:43 [emerg] 1#1: "location" directive is not allowed here in /etc/nginx/nginx.conf:42
+2025/08/15 11:28:56 [emerg] 1#1: "location" directive is not allowed here in /etc/nginx/nginx.conf:42
+2025/08/15 11:29:21 [emerg] 1#1: "location" directive is not allowed here in /etc/nginx/nginx.conf:42
+2025/08/15 11:30:13 [emerg] 1#1: "location" directive is not allowed here in /etc/nginx/nginx.conf:42
+2025/08/15 11:31:13 [emerg] 1#1: "location" directive is not allowed here in /etc/nginx/nginx.conf:42
+2025/08/15 11:32:13 [emerg] 1#1: "location" directive is not allowed here in /etc/nginx/nginx.conf:42
+2025/08/15 11:33:13 [emerg] 1#1: "location" directive is not allowed here in /etc/nginx/nginx.conf:42
+2025/08/15 11:34:13 [emerg] 1#1: "location" directive is not allowed here in /etc/nginx/nginx.conf:42
+2025/08/15 11:35:13 [emerg] 1#1: "location" directive is not allowed here in /etc/nginx/nginx.conf:42
+2025/08/15 11:36:13 [emerg] 1#1: "location" directive is not allowed here in /etc/nginx/nginx.conf:42

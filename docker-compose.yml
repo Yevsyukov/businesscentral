@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  coprime-landing:
+    build: .
+    ports:
+      - "8080:80"
+    container_name: coprime-landing
+    restart: unless-stopped
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=80
+    volumes:
+      # Для розробки можна підключити локальні файли
+      # - ./index.html:/usr/share/nginx/html/index.html
+      # - ./styles.css:/usr/share/nginx/html/styles.css
+      # - ./script.js:/usr/share/nginx/html/script.js
+      - ./logs/nginx:/var/log/nginx
+    networks:
+      - coprime-network
+
+networks:
+  coprime-network:
+    driver: bridge
+
+volumes:
+  nginx-logs:
+
