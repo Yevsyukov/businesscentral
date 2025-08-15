@@ -78,34 +78,83 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contactForm');
     
     if (contactForm) {
+        // Додаємо timestamp при завантаженні форми
+        const timestampInput = document.createElement('input');
+        timestampInput.type = 'hidden';
+        timestampInput.name = 'timestamp';
+        timestampInput.value = Math.floor(Date.now() / 1000);
+        contactForm.appendChild(timestampInput);
+        
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Get form data
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Відправляємо...';
+            submitBtn.disabled = true;
             
-            // Basic validation
-            if (!data.name || !data.email || !data.message) {
-                showNotification('Будь ласка, заповніть всі обов\'язкові поля', 'error');
+            // Збираємо дані форми
+            const formData = {
+                name: this.querySelector('#name').value.trim(),
+                email: this.querySelector('#email').value.trim(),
+                phone: this.querySelector('#phone').value.trim(),
+                company: this.querySelector('#company').value.trim(),
+                message: this.querySelector('#message').value.trim(),
+                honeypot: this.querySelector('#honeypot').value.trim(),
+                timestamp: timestampInput.value
+            };
+            
+            // Валідація на клієнті
+            if (!formData.name || !formData.email || !formData.message) {
+                showNotification('Будь ласка, заповніть всі обов\'язкові поля.', 'error');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
                 return;
             }
             
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(data.email)) {
-                showNotification('Будь ласка, введіть коректний email', 'error');
+            if (!isValidEmail(formData.email)) {
+                showNotification('Будь ласка, введіть коректний email адрес.', 'error');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
                 return;
             }
             
-            // Simulate form submission
-            showNotification('Заявка надіслана! Ми зв\'яжемося з вами найближчим часом.', 'success');
-            
-            // Reset form
-            this.reset();
+            // Відправка форми
+            fetch('send-form.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification(data.message, 'success');
+                    contactForm.reset();
+                    // Оновлюємо timestamp
+                    timestampInput.value = Math.floor(Date.now() / 1000);
+                } else {
+                    showNotification(data.message, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showNotification('Помилка відправки повідомлення. Спробуйте ще раз або зв\'яжіться з нами по телефону.', 'error');
+            })
+            .finally(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
         });
     }
 });
+
+// Функція валідації email
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
 
 // Notification system
 function showNotification(message, type = 'info') {

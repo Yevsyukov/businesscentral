@@ -148,3 +148,17 @@ docker run -p 8080:80 coprime-landing
 
 **Coprime IT** - Професійне впровадження MS Dynamics 365 Business Central в Україні
 
+- **Телефон:** +38 095 278-09-25
+- **Адреса:** Ryzka str., 8А, Kyiv, Ukraine, 04112
+- **LinkedIn:** [https://www.linkedin.com/company/coprime-it](https://www.linkedin.com/company/coprime-it)
+- **Twitter:** [https://twitter.com/CoprimeIT](https://twitter.com/CoprimeIT)
+
+## Функціональність
+
+### Контактна форма
+- ✅ **Функціональна відправка** через PHP
+- ✅ **Захист від спаму** (honeypot, timestamp, валідація)
+- ✅ **Валідація даних** на клієнті та сервері
+- ✅ **Логування заявок** для аналітики
+- ✅ **Безпечні заголовки** та налаштування сервера
+
